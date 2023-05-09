@@ -18,17 +18,17 @@ if (isset($_POST['submit'])) {
     $fileSize = $file["size"];
 
     $fileExt = explode(".", $fileName); #spravi zoznam [nazov,koncovka(jpeg...)]
-    $fileExtOnly = strtolower(end($fileExt)); # vybere iba koncovku
+    $fileExtOnly = strtolower(end($fileExt)); # vybere uba koncovku
 
     $allowed = array("jpeg", "jpg", "png");
 
-    if (in_array($fileExtOnly, $allowed)) {
+    if (in_array($fileExtOnly, $allowed)) { # kontorluje ci sme zadali spravny typ
         if ($fileError === 0) {
             if ($fileSize < 200000) {
-                $imageFullName = $newFileName . "." . uniqid("", true) . "." . $fileExtOnly; #ulozi nazov suboru + nahodne  + koncovka
+                $imageFullName = $newFileName . "." . uniqid("", true) . "." . $fileExtOnly; #ulozi nazov suboru + nahodne id proti duplikatu + koncovka
                 $fileDestination = "../gallery/" . $imageFullName;
 
-                include_once "db.php";
+                include_once "db.php"; #prepoji ma na databazu
                 #----------------------------------------------
                 if (!empty($imageTitle) && !empty($imageDesc)) {
                     $sql = "SELECT * FROM gallery;";

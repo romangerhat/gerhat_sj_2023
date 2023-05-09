@@ -15,7 +15,7 @@ if (isset($_POST['idGallery'])) {
         if ($row = mysqli_fetch_assoc($result)) {
             $image_name = $row['image_name'];
             $file_path = "../gallery/" . $image_name;
-            unlink($file_path);
+            unlink($file_path); // delete the file from the server
             $sql = "DELETE FROM gallery WHERE idGallery=?;";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {
