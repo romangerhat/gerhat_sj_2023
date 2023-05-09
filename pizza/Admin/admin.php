@@ -36,7 +36,6 @@ if(!isset($_SESSION['username'])) {
             <button type="submit" name="submit">Upload</button>
         </form>
     </div>';
-
     #-----------------------Delete
     echo '<br><div class="gallery_upload">
         <h2>Image Delete</h2>';
@@ -48,15 +47,23 @@ if(!isset($_SESSION['username'])) {
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         while ($row = mysqli_fetch_assoc($result)) {
+            $id = $row['idGallery'];
             echo '<div class="gallery-card">
                 <div class="gallery-card-content" style="border: 1px solid black; padding: 10px; margin-bottom: 5px">
                     <img src=../gallery/'.$row['image_name'].' width="200">
+                    <h3>'.$row['idGallery'].'</h3>
                     <h3>'.$row['title'].'</h3>
                     <p>'.$row['description'].'</p>
                     <form action="../includes/gallery_delete.php" method="post">
                         <input type="hidden" name="idGallery" value="'.$row['idGallery'].'">
                         <button type="submit" name="delete-submit">Delete</button>
                     </form>
+                    #--------------UPDATE----------------
+                    <form action="update.php" method="get">
+                            <input type="hidden" name="id" value="'.$row['idGallery'].'">
+                            <button type="submit" name="edit-submit">Edit</button>
+                    </form>
+                    #-------------------------------
                 </div>
             </div>';
         }
