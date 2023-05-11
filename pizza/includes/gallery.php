@@ -52,7 +52,7 @@
             </div>
             <?php
             include_once 'db.php';
-            $sql = "SELECT * FROM gallery ORDER BY orderGal DESC";
+                $sql = "SELECT * FROM gallery ORDER BY orderGal DESC";
                 $stmt = mysqli_stmt_init($conn);
                 if (!mysqli_stmt_prepare($stmt, $sql)){
                     "failed";
