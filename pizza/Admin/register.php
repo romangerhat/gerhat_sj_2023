@@ -24,4 +24,6 @@ if(isset($_POST['submit'])){
         mysqli_stmt_execute($stmt);
         header("Location: admin.php?register=success");
     }}
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
 }

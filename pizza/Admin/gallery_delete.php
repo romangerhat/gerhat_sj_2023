@@ -33,8 +33,9 @@ if (isset($_POST['idGallery'])) {
         } else {
             header("Location: ../index.php?delete=error");
         }
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
     }
-    mysqli_stmt_close($stmt);
-    mysqli_close($conn);
+
 }
 ?>

@@ -75,5 +75,7 @@ if (isset($_POST['submit'])) {
         include_once "../includes/error_btns.php";
         exit();
     }
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
 }
 ?>
