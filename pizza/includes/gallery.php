@@ -52,7 +52,7 @@
             </div>
             <?php
             include_once 'db.php';
-            $sql = "SELECT * FROM gallery ORDER BY orderGal DESC";
+                $sql = "SELECT * FROM gallery ORDER BY orderGal ASC";
                 $stmt = mysqli_stmt_init($conn);
                 if (!mysqli_stmt_prepare($stmt, $sql)){
                     "failed";
@@ -62,7 +62,7 @@
                     while ($row = mysqli_fetch_assoc($result)){
                         echo '<div class="col-md-4 col-sm-4">
                 <div class="gallery-wrapper">
-                    <img src=gallery/'.$row["image_name"].' class="img-responsive gallery-img" alt="Pizza 5">
+                    <img src=gallery/'.$row["image_name"].' class="img-responsive gallery-img">
                     <div class="gallery-des">
                         <h3>'.$row["title"].'</h3>
                         <h5>'.$row["description"].'</h5>

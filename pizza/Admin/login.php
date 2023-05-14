@@ -1,31 +1,28 @@
 <?php
+include_once "../includes/db_login.php";
 session_start();
-include_once "../includes/db_users.php";
 
-if(isset($_POST['submit'])){
-    $username = $_POST['user'];
-    $password = $_POST['pass'];
+if (isset($_POST['submit'])) {
 
-    $sql = "SELECT * FROM users WHERE username=? AND password=?;";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        echo "SQL statement failed";
-    } else {
-        mysqli_stmt_bind_param($stmt, "ss", $username, $password);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        if ($row = mysqli_fetch_assoc($result)) {
-            $_SESSION['username'] = $row['username'];
+    $email = $conn->real_escape_string($_POST['email']);
+    $password = $conn->real_escape_string($_POST['password']);
+
+    $sql = $conn->query("SELECT password FROM users WHERE email='$email'");
+
+        $data = $sql->fetch_array();
+        if ($data != null){
+        if (password_verify($password, $data['password'])) {
+            $_SESSION['email'] = $email;
             header("Location: admin.php");
             exit();
-        } else {
-            echo 'Invalid username or password
-            <br><br>
-            <a href="../index.php" style="display: inline-block; padding: 5px 10px; border: 1px solid black;
-            background-color: #767676; color: #e0e0e0; text-decoration: none;">Home</a>
-            <a href="admin.php" style="display: inline-block; padding: 5px 10px; border: 1px solid black;
-            background-color: #767676; color: #e3e3e3; text-decoration: none;">Retry</a>';
-        }
-    }
+        } else
+            echo 'Invalid username or password';
+                include_once "../includes/error_btns.php";
+                exit();
+        } else
+            echo 'User does not exist';
+                include_once "../includes/error_btns.php";
+                exit();
+
 }
 ?>
